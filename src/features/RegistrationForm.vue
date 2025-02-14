@@ -52,7 +52,8 @@ export default {
           email: '',
           password: '',
         }
-        this.$router.push('/');
+        localStorage.setItem('isRegistered', 'true');
+        this.$router.push('/home');
       }
     }
   }
