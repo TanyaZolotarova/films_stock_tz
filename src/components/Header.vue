@@ -24,31 +24,31 @@ export default {
 </script>
 
 <template>
-  <header class="header">
-    <div class="logo" @click="router.push('/home')">
-      <span class="material-icons">live_tv</span>
+  <header class='header'>
+    <div class='logo' @click="router.push('/home')">
+      <span class='material-icons'>live_tv</span>
     </div>
 
-    <nav class="nav">
-      <router-link to="/home">Home</router-link>
-      <router-link to="/tv-shows">TV Shows</router-link>
-      <router-link to="/movies">Movies</router-link>
-      <router-link to="/new-popular">New & Popular</router-link>
-      <router-link to="/my-list">My List</router-link>
+    <nav class='nav'>
+      <router-link to='/home'>Home</router-link>
+      <router-link to='/tv-shows'>TV Shows</router-link>
+      <router-link to='/movies'>Movies</router-link>
+      <router-link to='/new-popular'>New & Popular</router-link>
+      <router-link to='/my-list'>My List</router-link>
     </nav>
 
-    <div class="icons">
-      <div class="search-container">
-        <span class="material-icons search-icon" @click="toggleSearch">search</span>
-        <input v-if="searchVisible" type="text" v-model="searchQuery" placeholder="Titles, people, genres" class="search-input" />
+    <div class='icons'>
+      <div class='search-container'>
+        <span class='material-icons search-icon' @click='toggleSearch'>search</span>
+        <input v-if='searchVisible' type='text' v-model='searchQuery' placeholder='Titles, people, genres' class='search-input' />
       </div>
 
-      <span class="material-icons">notifications</span>
+      <span class='material-icons'>notifications</span>
 
-      <div class="profile" @click="showDropdown = !showDropdown">
-        <span class="material-icons">account_circle</span>
-        <div v-if="showDropdown" class="dropdown">
-          <span class="material-icons" @click="logout">logout</span>
+      <div class='profile' @click='showDropdown = !showDropdown'>
+        <span class='material-icons'>account_circle</span>
+        <div v-if='showDropdown' class='dropdown'>
+          <span class='material-icons' @click='logout'>logout</span>
         </div>
       </div>
     </div>
