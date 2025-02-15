@@ -39,6 +39,12 @@ export default {
   color: white;
   transition: transform 0.2s;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 200px;
+  max-width: 250px;
+  flex-grow: 1;
 }
 
 .movie-card:hover {
@@ -47,12 +53,16 @@ export default {
 
 .movie-card .title {
   color: #fffa4f;
+  flex-grow: 1;
 }
 
 .movie-card img {
   width: 100%;
   border-radius: 8px;
+  height: auto;
+  max-height: 300px;
   object-fit: cover;
+
 }
 
 .rating {

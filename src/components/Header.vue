@@ -1,24 +1,47 @@
 <script>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import {useRouter} from 'vue-router';
 
 export default {
-  setup() {
-    const router = useRouter();
-    const searchVisible = ref(false);
-    const searchQuery = ref('');
-    const showDropdown = ref(false);
-
-    const toggleSearch = () => {
-      searchVisible.value = !searchVisible.value;
+  data() {
+    return {
+      searchVisible: false,
+      searchQuery: '',
+      showDropdown: false,
+      menuActive: false
     };
-
-    const logout = () => {
+  },
+  computed: {
+    router() {
+      return useRouter();
+    }
+  },
+  methods: {
+    toggleSearch() {
+      this.searchVisible = !this.searchVisible;
+      if (this.searchVisible) {
+        this.$nextTick(() => {
+          document.addEventListener('click', this.handleOutsideClick);
+        });
+      } else {
+        document.removeEventListener('click', this.handleOutsideClick);
+      }
+    },
+    handleOutsideClick(event) {
+      if (!this.$refs.searchContainer.contains(event.target)) {
+        this.searchVisible = false;
+        document.removeEventListener('click', this.handleOutsideClick);
+      }
+    },
+    toggleMenu() {
+      this.menuActive = !this.menuActive;
+    },
+    logout() {
       localStorage.removeItem('isRegistered');
-      router.replace('/');
-    };
-
-    return { router, searchVisible, searchQuery, toggleSearch, showDropdown, logout };
+      this.router.replace('/');
+    }
+  },
+  beforeUnmount() {
+    document.removeEventListener('click', this.handleOutsideClick);
   }
 };
 </script>
@@ -29,7 +52,7 @@ export default {
       <span class='material-icons'>live_tv</span>
     </div>
 
-    <nav class='nav'>
+    <nav class='nav' :class="{'active': menuActive}">
       <router-link to='/home'>Home</router-link>
       <router-link to='/tv-shows'>TV Shows</router-link>
       <router-link to='/movies'>Movies</router-link>
@@ -38,9 +61,18 @@ export default {
     </nav>
 
     <div class='icons'>
-      <div class='search-container'>
+      <div class='search-container' ref='searchContainer'>
         <span class='material-icons search-icon' @click='toggleSearch'>search</span>
-        <input v-if='searchVisible' type='text' v-model='searchQuery' placeholder='Titles, people, genres' class='search-input' />
+        <transition name='fade'>
+          <input
+              v-if='searchVisible'
+              type='text'
+              v-model='searchQuery'
+              @input="$emit('search', searchQuery.trim())"
+              placeholder='movies search'
+              class='search-input'
+          />
+        </transition>
       </div>
 
       <span class='material-icons'>notifications</span>
@@ -51,6 +83,7 @@ export default {
           <span class='material-icons' @click='logout'>logout</span>
         </div>
       </div>
+      <span class='material-icons burger-icon' @click='toggleMenu'>menu</span>
     </div>
   </header>
 </template>
@@ -93,25 +126,36 @@ export default {
 }
 
 .search-container {
+  position: relative;
   display: flex;
   align-items: center;
-  position: relative;
 }
 
-.search-icon {
+.search-container .search-icon {
   cursor: pointer;
 }
 
 .search-input {
-  position: absolute;
-  right: 0;
-  top: 100%;
-  color: white;
-  background: #333;
-  border: 1px solid white;
-  padding: 7px;
-  border-radius: 5px;
+  height: 30px;
   width: 200px;
+  border: 1px solid white;
+  background: black;
+  color: white;
+  padding: 5px 10px;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: scale(0.9);
 }
 
 .profile {
@@ -123,10 +167,16 @@ export default {
   position: absolute;
   top: 40px;
   right: 0;
-  background: #333;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid white;
+  background: black;
+  color: white;
+}
+
+.burger-icon {
+  display: none;
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {
@@ -148,9 +198,34 @@ export default {
 
   .search-input {
     width: 180px;
-    right: auto;
-    left: 50%;
-    transform: translateX(-50%);
+  }
+
+  .burger-icon {
+    display: block;
+  }
+
+  .nav {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    background-color: black;
+    padding: 10px 0;
+  }
+
+  .nav.active {
+    display: flex;
+  }
+
+  .nav a {
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    background-color: #222;
+  }
+
+  .nav a:hover {
+    color: #fffa4f;
   }
 }
 
@@ -166,9 +241,6 @@ export default {
 
   .search-input {
     width: 150px;
-    right: auto;
-    left: 50%;
-    transform: translateX(-50%);
   }
 }
 </style>

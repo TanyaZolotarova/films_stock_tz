@@ -38,25 +38,30 @@ export default {
   padding: 20px;
   text-align: left;
 }
+
 .footer-links {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
   gap: 20px;
 }
+
 .footer-links div {
   display: flex;
   flex-direction: column;
 }
+
 .footer-links a {
   color: #aaa;
   text-decoration: none;
   font-size: 14px;
   margin: 5px 0;
 }
+
 .footer-links a:hover {
   color: #fff;
 }
+
 @media (max-width: 768px) {
   .footer-links {
     flex-direction: column;
