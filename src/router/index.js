@@ -1,6 +1,8 @@
 import {createRouter, createWebHistory} from 'vue-router';
-import Register from '@/pages/Register.vue';
+import MovieModal from '@/features/MovieModal.vue';
 import Home from '@/pages/Home.vue';
+import Register from '@/pages/Register.vue';
+
 
 const routes = [
     {path: '/', component: Register},
@@ -15,6 +17,11 @@ const routes = [
                 next();
             }
         }
+    },
+    {
+        path: '/movie/:id',
+        component: MovieModal,
+        props: route => ({ id: route.params.id })
     }
 ];
 

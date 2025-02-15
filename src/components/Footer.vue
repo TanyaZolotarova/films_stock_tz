@@ -1,31 +1,31 @@
 <script>
 export default {
-  name: "FooterComponent",
+  name: 'FooterComponent',
 };
 </script>
 
 <template>
-  <footer class="footer">
-    <div class="footer-links">
+  <footer class='footer'>
+    <div class='footer-links'>
       <div>
-        <a href="#">Audio Description</a>
-        <a href="#">Investor Relations</a>
-        <a href="#">Legal Notices</a>
+        <a href='#'>Audio Description</a>
+        <a href='#'>Investor Relations</a>
+        <a href='#'>Legal Notices</a>
       </div>
       <div>
-        <a href="#">Help Center</a>
-        <a href="#">Jobs</a>
-        <a href="#">Cookie Preferences</a>
+        <a href='#'>Help Center</a>
+        <a href='#'>Jobs</a>
+        <a href='#'>Cookie Preferences</a>
       </div>
       <div>
-        <a href="#">Gift Cards</a>
-        <a href="#">Terms of Use</a>
-        <a href="#">Corporate Information</a>
+        <a href='#'>Gift Cards</a>
+        <a href='#'>Terms of Use</a>
+        <a href='#'>Corporate Information</a>
       </div>
       <div>
-        <a href="#">Media Center</a>
-        <a href="#">Privacy</a>
-        <a href="#">Contact Us</a>
+        <a href='#'>Media Center</a>
+        <a href='#'>Privacy</a>
+        <a href='#'>Contact Us</a>
       </div>
     </div>
   </footer>
