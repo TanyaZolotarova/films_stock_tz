@@ -207,7 +207,6 @@ export default {
     width: 100%;
     flex-direction: column;
     align-items: center;
-    background-color: black;
     padding: 10px 0;
   }
 
@@ -216,10 +215,8 @@ export default {
   }
 
   .nav a {
-    padding: 10px;
     width: 100%;
     text-align: center;
-    background-color: #222;
   }
 
   .nav a:hover {
