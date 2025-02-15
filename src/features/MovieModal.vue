@@ -1,5 +1,6 @@
 <script>
-import { fetchMovieDetails } from '@/api/movies';
+import {fetchMovieDetails} from '@/api/movies';
+
 export default {
   props: {
     id: [String, Number],
