@@ -19,9 +19,7 @@ export default {
     toggleSearch() {
       this.searchVisible = !this.searchVisible;
       if (this.searchVisible) {
-        this.$nextTick(() => {
           document.addEventListener('click', this.handleOutsideClick);
-        });
       } else {
         document.removeEventListener('click', this.handleOutsideClick);
       }

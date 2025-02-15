@@ -21,7 +21,15 @@ const routes = [
     {
         path: '/movie/:id',
         component: MovieModal,
-        props: route => ({ id: route.params.id })
+        props: route => ({ id: route.params.id }),
+        beforeEnter: (to, from, next) => {
+            const isRegistered = localStorage.getItem('isRegistered');
+            if (!isRegistered) {
+                next('/');
+            } else {
+                next();
+            }
+        }
     }
 ];
 
