@@ -6,7 +6,8 @@ export default {
     return {
       searchVisible: false,
       searchQuery: '',
-      showDropdown: false
+      showDropdown: false,
+      menuActive: false
     };
   },
   computed: {
@@ -31,6 +32,9 @@ export default {
         document.removeEventListener('click', this.handleOutsideClick);
       }
     },
+    toggleMenu() {
+      this.menuActive = !this.menuActive;
+    },
     logout() {
       localStorage.removeItem('isRegistered');
       this.router.replace('/');
@@ -48,7 +52,7 @@ export default {
       <span class='material-icons'>live_tv</span>
     </div>
 
-    <nav class='nav'>
+    <nav class='nav' :class="{'active': menuActive}">
       <router-link to='/home'>Home</router-link>
       <router-link to='/tv-shows'>TV Shows</router-link>
       <router-link to='/movies'>Movies</router-link>
@@ -65,7 +69,7 @@ export default {
               type='text'
               v-model='searchQuery'
               @input="$emit('search', searchQuery.trim())"
-              placeholder='Titles, people, genres'
+              placeholder='movies search'
               class='search-input'
           />
         </transition>
@@ -79,6 +83,7 @@ export default {
           <span class='material-icons' @click='logout'>logout</span>
         </div>
       </div>
+      <span class='material-icons burger-icon' @click='toggleMenu'>menu</span>
     </div>
   </header>
 </template>
@@ -169,6 +174,11 @@ export default {
   color: white;
 }
 
+.burger-icon {
+  display: none;
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
   .header {
     flex-direction: column;
@@ -188,6 +198,34 @@ export default {
 
   .search-input {
     width: 180px;
+  }
+
+  .burger-icon {
+    display: block;
+  }
+
+  .nav {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    background-color: black;
+    padding: 10px 0;
+  }
+
+  .nav.active {
+    display: flex;
+  }
+
+  .nav a {
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    background-color: #222;
+  }
+
+  .nav a:hover {
+    color: #fffa4f;
   }
 }
 
